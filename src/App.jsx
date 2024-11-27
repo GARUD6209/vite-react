@@ -1,36 +1,33 @@
 import "./App.css";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [step, setStep] = useState(1);
+  const [counters, setCounters] = useState([{ id: 1, value: 0 }]);
 
-  const increment = () => {
-    setCount(count + step);
+  const addCounters = () => {
+    setCounters([...counters, { id: counters.length + 1, value: 0 }]);
   };
 
-  const incrementTwice = () => {
-    setCount((count) => count + 1);
-    setCount((count) => count + 1);
+  const increment = (id) => {
+    setCounters(
+      counters.map((counter) =>
+        counter.id === id ? { ...counter, value: counter.value + 1 } : counter
+      )
+    );
   };
 
-  const decrement = () => {
-    setCount(count - step);
-  };
   return (
     <>
       <div className="app-container">
-        <h1>Count : {count}</h1>
-        <input
-          type="number"
-          value={step}
-          onChange={(e) => {
-            setStep(parseInt(e.target.value));
-          }}
-        />
-        <button onClick={increment}>increment</button>
-        <button onClick={decrement}>decrement</button>
-        <button onClick={incrementTwice}>+2</button>
+        <button onClick={addCounters}>Add Counters</button>
+        <ul>
+          {counters.map((counter) => (
+            <li key={counter.id}>
+              Counter {counter.id} : {counter.value}
+              <button onClick={() => increment(counter.id)}>increment</button>
+            </li>
+          ))}
+        </ul>
       </div>
     </>
   );

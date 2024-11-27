@@ -109,3 +109,8 @@ a:hover{
   button:hover{
     background-color: #9cbee3;
   }
+
+  li{
+    text-decoration: none;
+    list-style-type: none;
+  }
