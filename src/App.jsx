@@ -2,110 +2,44 @@ import "./App.css";
 import { useState } from "react";
 
 function App() {
-  const [formData, setFormData] = useState({
-    text: "",
-    checkbox: false,
-    radio: "",
-    select: "",
-  });
+  const [backgroundColor, setBackgroundColor] = useState("#FF5733");
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setFormData({
-      ...formData,
-      [name]: type === "checkbox" ? checked : value,
-    });
+  const colors = [
+    "#FF5733",
+    "#33FF57",
+    "#3357FF",
+    "#FFFF33",
+    "#FF33FF",
+    "#33FFFF",
+    "#FFFFFF",
+    "#000000",
+  ];
+
+  const handleColorChange = (color) => {
+    setBackgroundColor(color);
   };
 
   return (
     <>
-      <div className="form-container">
-        <h1>form example</h1>
-        <form action="">
-          {/* text field */}
-          <div className="form-field">
-            <label>Text: </label>
-            <input
-              type="text"
-              name="text"
-              value={formData.text}
-              onChange={handleChange}
-            />
-          </div>
-
-          {/* checkbox field */}
-          <div className="form-field">
-            <label>
-              <input
-                type="checkbox"
-                name="checkbox"
-                checked={formData.checkbox}
-                onChange={handleChange}
-              ></input>
-              Checkbox
-            </label>
-          </div>
-
-          {/* Radio field */}
-
-          <div className="form-field">
-            <label>Radio : </label>
-            <label>
-              <input
-                type="radio"
-                name="radio"
-                value="option1"
-                checked={formData.radio === "option1"}
-                onChange={handleChange}
-              />
-              Option1
-            </label>
-            <label>
-              <input
-                type="radio"
-                name="radio"
-                value="option2"
-                checked={formData.radio === "option2"}
-                onChange={handleChange}
-              />
-              option2
-            </label>
-
-            {/* Dropdown field */}
-
-            <div className="form-field">
-              <label>Select: </label>
-              <select
-                name="select"
-                value={formData.select}
-                onChange={handleChange}
-              >
-                <option value="">-- choose an option --</option>
-                <option value="option1">option1</option>
-                <option value="option2">option2</option>
-              </select>
-            </div>
-            <div className="form-data">
-              <h3>Form Data</h3>
-              <p>
-                <strong>Text : </strong>
-                {formData.text || "N/a"}
-              </p>
-              <p>
-                <strong>Checkbox : </strong>
-                {formData.checkbox ? "Checked" : "Unchecked"}
-              </p>
-              <p>
-                <strong>Radio : </strong>
-                {formData.radio || "N/a"}
-              </p>
-              <p>
-                <strong>Select : </strong>
-                {formData.select || "N/a"}
-              </p>
-            </div>
-          </div>
-        </form>
+      <div className="App" style={{ backgroundColor }}>
+        <h1>Color Picker</h1>
+        <div className="color-palette">
+          {colors.map((color, index) => (
+            <div
+              key={index}
+              className="color-box"
+              style={{ backgroundColor: color }}
+              onClick={() => handleColorChange(color)}
+            ></div>
+          ))}
+        </div>
+        <div className="custom-color-picker">
+          <input
+            type="color"
+            value={backgroundColor}
+            onChange={(e) => handleColorChange(e.target.value)}
+          />
+        </div>
       </div>
     </>
   );
